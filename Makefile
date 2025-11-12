@@ -12,7 +12,7 @@ DB_PASS ?= motdepasse
 DB_HOST ?= localhost
 DB_PORT ?= 5432
 
-.PHONY: createdb dropdb psql create insert select update
+.PHONY: createdb dropdb psql create insert select update help
 
 createdb:
 	@PGPASSWORD="$(DB_PASS)" createdb -U "$(DB_USER)" -h "$(DB_HOST)" -p "$(DB_PORT)" "$(DB_NAME)"
@@ -34,3 +34,14 @@ select:
 
 update:
 	@PGPASSWORD="$(DB_PASS)" psql -U "$(DB_USER)" -h "$(DB_HOST)" -p "$(DB_PORT)" -d "$(DB_NAME)" -f update.sql
+
+help:
+	@echo "Usage:"
+	@echo "  make createdb    # Créer la base de données"
+	@echo "  make dropdb      # Supprimer la base de données"
+	@echo "  make psql        # Ouvrir un shell psql"
+	@echo "  make create      # Exécuter create.sql"
+	@echo "  make insert      # Exécuter insert.sql"
+	@echo "  make select      # Exécuter select.sql"
+	@echo "  make update      # Exécuter update.sql"
+	@echo "  make help        # Afficher cette aide"
